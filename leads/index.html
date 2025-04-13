@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subscribe for Updates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 0.75rem;
+      font-size: 1.5rem;
+    }
+
+    p {
+      color: #555;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    label input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    .note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Subscribe for Exclusive Offers</h2>
+    <p>Enter your phone number to receive marketing updates via WhatsApp or SMS. You can opt out at any time by replying STOP.</p>
+    
+    <form
+    action="https://formspree.io/f/moverkbd"
+    method="POST"
+    >
+      <input type="text" placeholder="Your phone number" required />
+      
+      <label>
+        <input type="checkbox" required />
+        I agree to receive promotional messages and updates.
+      </label>
+      
+      <button type="submit">Subscribe</button>
+    </form>
+
+    <p class="note">We respect your privacy and will never send unsolicited messages.</p>
+  </div>
+</body>
+</html>
