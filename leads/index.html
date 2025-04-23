@@ -12,9 +12,11 @@
   <title>Subscribe for Updates</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+  box-sizing: border-box;
+}
     body {
       font-family: 'Inter', sans-serif;
-      /* margin: 0; */
       margin-top: 4rem;
       padding: 0;
       background-color: #f9fafb;
@@ -26,10 +28,10 @@
     }
 
     @media (max-width: 600px) {
-    body {
-      margin-top: 0.8rem;
+      body {
+        margin-top: 0.8rem;
+      }
     }
-  }
 
     .container {
       background: white;
@@ -52,7 +54,7 @@
       margin-bottom: 1.5rem;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="email"] {
       width: 100%;
       padding: 0.75rem;
       font-size: 1rem;
@@ -66,6 +68,7 @@
       align-items: center;
       font-size: 0.9rem;
       margin-bottom: 1rem;
+      text-align: justify;
     }
 
     label input[type="checkbox"] {
@@ -94,10 +97,9 @@
       color: #777;
     }
 
-    #status{
-        font-weight: bold;
+    #status {
+      font-weight: bold;
     }
-    
   </style>
 </head>
 <body>
@@ -105,35 +107,46 @@
     <p id="status"></p>
 
     <h2>Subscribe for Exclusive Offers</h2>
-    <p>Enter your phone number to receive marketing updates via WhatsApp or SMS. You can opt out at any time by replying STOP.</p>
+    <p>Enter your details to receive updates via WhatsApp, SMS, or email. You can opt out at any time.</p>
     
-    <form
-    id="main-form"
-    >
+    <form id="main-form">
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Your email" required />
       <input type="text" name="phone" placeholder="Your phone number" required />
-      
+
       <label>
-        <input type="checkbox" name="consent" required />
-        I agree to receive promotional messages and updates.
+        <input type="checkbox" name="age_confirm" required />
+        I confirm that I am 18 years of age or older.
+      </label>
+
+      <label>
+        <input type="checkbox" name="consent_sms" required />
+        I agree to receive promotional messages and updates via SMS or WhatsApp.
+      </label>
+
+      <label>
+        <input type="checkbox" name="consent_email" required />
+        I agree to receive marketing emails and product updates.
       </label>
       
       <button type="submit">Subscribe</button>
     </form>
-    <p class="note">We respect your privacy and will never send unsolicited messages.</p>
 
     <div class="note" style="text-align: left; font-size: 0.75rem; color: #666; margin-top: 1rem;">
-      <strong>Opt-in Disclosure:</strong><br />
-      Users provide their phone number through our website at 
-      <a href="https://victord3v.netlify.app/leads/" target="_blank">https://victord3v.netlify.app/leads/</a>.
-      Before submitting the form, users are required to check a box explicitly stating: 
-      <em>"I agree to receive promotional messages and updates."</em><br /><br />
-      The checkbox is marked as required and the form cannot be submitted without active consent.<br /><br />
-      The form also informs users that messages may be sent via SMS or WhatsApp, and they can opt out anytime by replying “STOP”.<br /><br />
-      The opt-in is stored and processed via our form backend (Formspree), which logs each submission along with the consent field.
+      <strong>Opt-in Disclosure:</strong><br /><em>Note: Our business does not promote or sell alcoholic beverages of any kind.</em><br /><br />
+      Users provide their name, email, and phone number through our website at 
+      <a href="https://victord3v.netlify.app/leads/" target="_blank">https://victord3v.netlify.app/leads/</a>.<br /><br />
+      Before submitting the form, users must:
+      <ul style="padding-left: 1.2rem; margin-top: 0.5rem;">
+        <li>Confirm they are at least 18 years old.</li>
+        <li>Explicitly agree to receive promotional messages via SMS or WhatsApp.</li>
+        <li>Explicitly agree to receive marketing content via email.</li>
+      </ul>
+      All submissions are securely stored and processed by our backend provider (Formspree), including timestamp, IP address, and opt-in status for each channel.<br /><br />
+      Users may opt out at any time by replying “STOP” to messages or unsubscribing via links in the emails.
     </div>
-
-    <!-- <p class="note">We respect your privacy and will never send unsolicited messages.</p> -->
   </div>
+
   <footer style="margin-top: 2rem; text-align: center; font-size: 0.75rem; color: #999;">
     <p>
       <strong>ARNALDO VICTOR MARTINS DE AZEVEDO®</strong> is a business registered<br />
@@ -146,43 +159,45 @@
     </p>
   </footer>
 
+  <script>
+    const form = document.getElementById("main-form");
+    const status = document.getElementById("status");
 
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-<script>
-  const form = document.getElementById("main-form");
-  const status = document.getElementById("status");
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        age_confirm: form.age_confirm.checked ? "yes" : "no",
+        consent_sms: form.consent_sms.checked ? "yes" : "no",
+        consent_email: form.consent_email.checked ? "yes" : "no"
+      };
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+      try {
+        const response = await fetch("https://formspree.io/f/moverkbd", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
 
-    const data = {
-      phone: form.phone.value,
-      consent: form.consent.checked ? "yes" : "no"
-    };
-
-    try {
-      const response = await fetch("https://formspree.io/f/moverkbd", {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        form.reset();
-        status.textContent = "Thank you for subscribing!";
-        status.style.color = "green";
-      } else {
-        status.textContent = "Something went wrong. Please try again.";
+        if (response.ok) {
+          form.reset();
+          status.textContent = "Thank you for subscribing!";
+          status.style.color = "green";
+        } else {
+          status.textContent = "Something went wrong. Please try again.";
+          status.style.color = "red";
+        }
+      } catch (error) {
+        status.textContent = "Network error. Please try again later.";
         status.style.color = "red";
       }
-    } catch (error) {
-      status.textContent = "Network error. Please try again later.";
-      status.style.color = "red";
-    }
-  });
-</script>
+    });
+  </script>
 </body>
 </html>
