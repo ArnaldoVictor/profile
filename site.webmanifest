@@ -1,6 +1,6 @@
 {
-  "name": "Smart V",
-  "short_name": "SmartV",
+  "name": "KryoDev",
+  "short_name": "KryoDev",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#080d10",
-  "background_color": "#080d10",
+  "theme_color": "#00174b",
+  "background_color": "#00174b",
   "display": "standalone"
 }
